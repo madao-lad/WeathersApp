@@ -9,27 +9,32 @@ async function getWeather() {
     
     let data = await weather.json();
 
-    console.log(data);
-
     let rainProbability = data.hourly.rain[0];
     let windy = data.hourly.wind_speed_80m[0];
+    let temperaturee = data.hourly.apparent_temperature[0];
 
-    if(rainProbability>0){
-        rain.textContent = rain.textContent+": YES";
-    }else{
-        rain.textContent = rain.textContent+": NO";
-    }
-
+    temp.textContent = temp.textContent+": "+temperaturee;    
+    
     if(windy<10){
         wind.textContent = wind.textContent + ": Not windy";
     }else if(windy>10 && windy<=50){
         wind.textContent = wind.textContent + ": Mildly windy";
+        document.body.style.backgroundImage="url(images/windy.jpeg)";
     }else{
         wind.textContent = wind.textContent + ": Voilent winds in your area";
     }
+    
+    if(temperaturee>30){
+        document.body.style.backgroundImage="url(images/scorching_heat.jpeg)";
+    }
 
+    if(rainProbability>0){
+        rain.textContent = rain.textContent+": YES";
+        document.body.style.backgroundImage="url(images/rain.jpg)";
+    }else{
+        rain.textContent = rain.textContent+": NO";
+    }
 
-    temp.textContent = temp.textContent+": "+data.hourly.apparent_temperature[0];    
 }
 
 getWeather();
